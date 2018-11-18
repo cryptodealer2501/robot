@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 from ev3dev.ev3 import *
+from os import time
+
+ultra = UltrasonicSensor()
 
 ml = LargeMotor("outA")
 mr = LargeMotor("outB")
@@ -8,10 +11,12 @@ ml.reset()
 mr.reset()
 mm.reset()
 
-#          0 = up
-#3 = left          1 = right
-#          2 = down
+
+#          0 = forw
+#3 = left            1 = right
+#          2 = back
 rotrob = 0
+
 
 #0 = nevi
 #1 = block
@@ -26,6 +31,8 @@ pole = [[0,1,2,3,4,5,6,7,8],
         [0,1,2,3,4,5,6,7,8],
         [0,1,2,3,4,5,6,7,8]]
 
+
+#movement
 def forw():
         ml.run_to_rel_pos(speed_sp = 500, position_sp = 360, stop_action = "hold")
         mr.run_to_rel_pos(speed_sp = 500, position_sp = 360, stop_action = "hold")
@@ -43,3 +50,9 @@ def back():
         mr.run_to_rel_pos(speed_sp = 500, position_sp = -360, stop_action = "hold")
 
 
+#sensor
+def ultraread(side):
+        if side == 0:
+                #mm.run_to_rel_pos(speed_sp = 250, position_sp = 90)
+                return ultra.distance_centimeters()
+        
