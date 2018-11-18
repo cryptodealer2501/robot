@@ -53,6 +53,15 @@ def back():
 #sensor
 def ultraread(side):
         if side == 0:
-                #mm.run_to_rel_pos(speed_sp = 250, position_sp = 90)
+                mm.run_to_rel_pos(speed_sp = 250, position_sp = 90)
                 return ultra.distance_centimeters()
+        elif side == 1:
+                mm.run_to_rel_pos(speed_sp = 250, position_sp = 90)
+                return ultra.distance_centimeters()
+        elif side == 3:
+                mm.run_to_rel_pos(speed_sp = 250, position_sp = 90)
+                return ultra.distance_centimeters()
+
+
+
         
