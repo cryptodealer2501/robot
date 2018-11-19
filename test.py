@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from ev3dev.ev3 import *
-from os import time
+from time import sleep
 
 ultra = UltrasonicSensor()
 
