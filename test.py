@@ -13,6 +13,8 @@ mm.reset()
 
 ultrapos = 0
 
+turn = False
+
 forwa = 0
 lef = 0
 righ = 0
@@ -43,12 +45,12 @@ def forw():
         mr.run_to_rel_pos(speed_sp = 500, position_sp = 5, stop_action = "hold")
 
 def left():
-        ml.run_to_rel_pos(speed_sp = 500, position_sp = -360, stop_action = "hold")
-        mr.run_to_rel_pos(speed_sp = 500, position_sp = 360, stop_action = "hold")
+        ml.run_to_rel_pos(speed_sp = 200, position_sp = -2, stop_action = "hold")
+        mr.run_to_rel_pos(speed_sp = 200, position_sp = 2, stop_action = "hold")
 
 def right():
-        ml.run_to_rel_pos(speed_sp = 500, position_sp = 360, stop_action = "hold")
-        mr.run_to_rel_pos(speed_sp = 500, position_sp = -360, stop_action = "hold")
+        ml.run_to_rel_pos(speed_sp = 200, position_sp = 2, stop_action = "hold")
+        mr.run_to_rel_pos(speed_sp = 200, position_sp = -2, stop_action = "hold")
 
 def back():
         ml.run_to_rel_pos(speed_sp = 500, position_sp = -360, stop_action = "hold")
@@ -88,6 +90,8 @@ def mapupdate(position, direction, forw, right, left):
 
 
 while True:
+        turn = True
+        vzdalen = 0
         forwa = ultraread(0,ultrapos)
         righ = ultraread(1,ultrapos)
         lef = ultraread(3,ultrapos)
@@ -96,7 +100,19 @@ while True:
                 while ultraread(0,ultrapos) < 8:
                         forw()
         elif right > forw and right > left:
-                right()
+                while turn:
+                        vzdalen = ultraread(0,ultrapos)
+                        sleep(0.1)
+                        if ultraread(0,ultrapos) < vzdalen:
+                                right()
+                        else:
+                                turn = False
         elif left > forw and left > right:
-                left()
+                while turn:
+                        vzdalen = ultraread(0,ultrapos)
+                        sleep(0.1)
+                        if ultraread(0,ultrapos) < vzdalen:
+                                left()
+                        else:
+                                turn = False
 
